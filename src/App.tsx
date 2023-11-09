@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import "./app.css"
+import Fruits from './Fruits';
 
 /**
  - inline style
@@ -223,6 +223,7 @@ function App() {
           })
         }
       </ul>
+      <Fruits/>
     </div>
   );
 }
