@@ -3,6 +3,7 @@ import "./app.css";
 import Fruits from "./Fruits";
 import Lifecycle from "./lifecycle/Lifecycle";
 import Lifecycle2 from "./lifecycle/Lifecycle2";
+import Component_1 from "./lifecycle/Component_1";
 
 /**
  - inline style
@@ -32,6 +33,8 @@ function App() {
   const [username, setUserName] = useState<string>("");
   const [counter, setCounter] = useState<number>(0);
   const [data, setData] = useState<Data>();
+  const [result, setResult] = useState<Data>()
+  const [page, setPage] = useState<number>(1)
 
   function logData() {
     console.log("Button clicked");
@@ -96,6 +99,10 @@ function App() {
     ]);
   }
 
+  function handleChange(pageNumber: number){
+    setPage(pageNumber)
+  }
+
   /**
    * bài tập về nhà:
    * 1. tạo 2 ô input gồm: username, role
@@ -116,6 +123,20 @@ function App() {
 
     fetchData();
   }, []);
+
+  useEffect(function(){
+    async function fetchData() {
+      const data = await fetch(`https://reqres.in/api/users?page=${page}`)
+      const result = await data.json()
+      setResult(result)
+    }
+
+    fetchData()
+  }, [page])
+
+  function handleReset(){
+    setPage(1)
+  }
 
   // init
   // mounting
@@ -311,6 +332,11 @@ function App() {
       <Lifecycle data={data} />
 
       <ul></ul>
+      <Component_1 
+      result={result} 
+      onChange={handleChange}
+      handleReset={handleReset}
+      />
     </div>
   );
 }
