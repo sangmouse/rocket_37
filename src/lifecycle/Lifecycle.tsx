@@ -6,16 +6,16 @@ interface LifecycleProps {
     data: Data | undefined
 }
 
-export default function Lifecycle(props: LifecycleProps){
+export default function Lifecycle(props: LifecycleProps) {
 
 
-    console.log("lifecycle init");
-    
+    // console.log("lifecycle init");
+
 
     return (
         <>
             <h1>Lifecycle Component Heading</h1>
-            <Lifecycle2 data={props.data}/>
+            <Lifecycle2 data={props.data} />
         </>
     )
 }

@@ -4,6 +4,7 @@ import Fruits from "./Fruits";
 import Lifecycle from "./lifecycle/Lifecycle";
 import Lifecycle2 from "./lifecycle/Lifecycle2";
 import Component_1 from "./lifecycle/Component_1";
+import Styles from "./Styles";
 
 /**
  - inline style
@@ -37,7 +38,7 @@ function App() {
   const [page, setPage] = useState<number>(1)
 
   function logData() {
-    console.log("Button clicked");
+    // console.log("Button clicked");
   }
 
   function onUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -49,6 +50,8 @@ function App() {
 
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [job, setJob] = useState<string>("");
 
   const [users, setUsers] = useState([
     {
@@ -81,7 +84,7 @@ function App() {
 
   const logFullName = () => {
     const fullName = `${firstName} ${lastName}`;
-    console.log(fullName);
+    // console.log(fullName);
   };
 
   function getFullName() {
@@ -99,7 +102,7 @@ function App() {
     ]);
   }
 
-  function handleChange(pageNumber: number){
+  function handleChange(pageNumber: number) {
     setPage(pageNumber)
   }
 
@@ -109,22 +112,22 @@ function App() {
    * sau khi nhập giá trị vào 2 ô input xong, click button add user => thêm mới user vào users state
    */
 
-  console.log("App init");
+  // console.log("App init");
 
   useEffect(() => {
-    console.log("app useeffect", counter);
+    // console.log("app useeffect", counter);
 
     async function fetchData() {
       const data = await fetch("https://reqres.in/api/users?page=2");
       const result = await data.json();
-      console.log(result);
+      // console.log(result);
       setData(result);
     }
 
     fetchData();
   }, []);
 
-  useEffect(function(){
+  useEffect(function () {
     async function fetchData() {
       const data = await fetch(`https://reqres.in/api/users?page=${page}`)
       const result = await data.json()
@@ -134,8 +137,20 @@ function App() {
     fetchData()
   }, [page])
 
-  function handleReset(){
+  function handleReset() {
     setPage(1)
+  }
+
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    await fetch("https://reqres.in/api/users", {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: name,
+        job: job
+      }),
+    })
   }
 
   // init
@@ -269,14 +284,14 @@ function App() {
         <button onClick={logData}>Log data into UI</button>
         <button
           onClick={function () {
-            console.log("hello world");
+            // console.log("hello world");
           }}
         >
           Log data into UI
         </button>
         <button
           onClick={() => {
-            console.log("hello world arrow function");
+            // console.log("hello world arrow function");
           }}
         >
           Log data into UI
@@ -287,7 +302,7 @@ function App() {
         <input type="text" name="" id="username" onChange={onUsernameChange} />
         <button
           onClick={function () {
-            console.log(username);
+            // console.log(username);
           }}
         >
           Log user name
@@ -332,11 +347,38 @@ function App() {
       <Lifecycle data={data} />
 
       <ul></ul>
-      <Component_1 
-      result={result} 
-      onChange={handleChange}
-      handleReset={handleReset}
+      <Component_1
+        result={result}
+        onChange={handleChange}
+        handleReset={handleReset}
       />
+
+      <div className="user-form">
+        <form onSubmit={onSubmit}>
+          <p>
+            <label htmlFor="name">Your name</label>
+            <input
+              type="text"
+              placeholder="your name"
+              name="name"
+              value={name}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => setName(event.target.value)} />
+          </p>
+          <p>
+            <label htmlFor="job">Your job</label>
+            <input
+              type="text"
+              placeholder="your job"
+              name="job"
+              value={job}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => setJob(event.target.value)} />
+          </p>
+          <p>
+            <button type="submit">Create new user</button>
+          </p>
+        </form>
+      </div>
+      <Styles />
     </div>
   );
 }

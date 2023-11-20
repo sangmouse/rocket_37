@@ -6,20 +6,20 @@ interface Lifecycle2Props {
 }
 
 export default function Lifecycle2(props: Lifecycle2Props) {
-  console.log("lifecycle2 init");
+  // console.log("lifecycle2 init");
 
   const { data } = props;
 
-  function renderList(){
+  function renderList() {
     return data?.data.map(function (item, index) {
-          return (
-            <li>
-              <p>{item.avatar}</p>
-              <p>{item.email}</p>
-              <p>{`${item.first_name} ${item.last_name}`}</p>
-            </li>
-          );
-        })
+      return (
+        <li>
+          <p>{item.avatar}</p>
+          <p>{item.email}</p>
+          <p>{`${item.first_name} ${item.last_name}`}</p>
+        </li>
+      );
+    })
   }
 
   return (

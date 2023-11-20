@@ -33,3 +33,28 @@
     text-align: center;
     display: inline-block;
 }
+
+.user-form {
+    border: 1px solid lightgrey;
+    padding: 30px;
+    border-radius: 10px;
+    width: 50%;
+    margin: 50px auto;
+}
+
+.user-form label {
+    display: inline-block;
+    width: 200px;
+}
+
+.user-form input {
+    display: inline-block;
+    width: 500px;
+    height: 25px;
+    border-radius: 5px;
+    padding: 0 10px;
+}
+
+.user-form p:last-child {
+    text-align: center;
+}
