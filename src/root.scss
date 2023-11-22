@@ -1,0 +1,23 @@
+.header-top{
+    border: 1px solid grey;
+    padding: 30px;
+    margin: 30px;
+    h1{
+        text-align: center;
+    }
+}
+.wrapper-content {
+    display: flex;
+    gap: 50px;
+    padding: 30px;
+    .sidebar{
+        width: 300px;
+        border: 1px solid grey;
+        padding: 30px;
+    }
+    .component-content {
+        width: calc(100% - 300px);
+        border: 1px solid grey;
+        padding: 30px;
+    }
+}
